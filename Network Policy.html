@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Policy</title>
+    <link rel="stylesheet" href="css/network policy.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
+    </script>
+</head>
+
+<body class="theme">
+    <nav class="navbar navbar-expand-md navbar-dark navbar-inverse" style=" justify-content: center; padding: 0%;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" style="font-size: 1.7rem;"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="header">
+                    <a href="index.html">Firewall</a>
+                </li>
+                <li class="header active">
+                    <a href="Network Policy.html">Network Policy</a>
+                </li>
+                <li class="header">
+                    <a href="firewall_authentication.html">Authentication</a>
+                </li>
+                <li class="header">
+                    <a href="packet_filtering.html">Packet Filtering</a>
+                </li>
+                <li class="header">
+                    <a href="application_gateway.html">Application Gateway</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="row">
+        <div class="outerdiv1 outerdiv" style="width: 25%;">
+            <div class="content">
+                <ul class="decor">
+                    <li><a href="#network_policy">Network Policies</a></li>
+                    <li><a href="#prerequisites">Prerequisites</a></li>
+                    <li><a href="#isolated-and-non-isolated-pods">Isolated and Non-isolated Pods</a></li>
+                    <li><a href="#networkpolicy-resource">The NetworkPolicy resource</a></li>
+                    <li><a href="#prohibited-network-policy">What you can't do with network policies </a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="outerdiv adis rightsidebar">
+            <div>
+                <h1 id="network_policy">Network Policies</h1>
+                <hr>
+                <p>If you want to control traffic flow at the IP address or port level (OSI layer 3 or 4), then you
+                    might
+                    consider using Kubernetes NetworkPolicies for particular applications in your cluster.
+                    NetworkPolicies are
+                    an application-centric construct which allow you to specify how a pod is allowed
+                    to communicate with various network "entities" (we use the word "entity" here to avoid overloading
+                    the more
+                    common terms such as "endpoints" and "services", which have specific Kubernetes connotations) over
+                    the
+                    network.</p>
+                <p>The entities that a Pod can communicate with are identified through a combination of the following 3
+                    identifiers:</p>
+                <ol>
+                    <li>Other pods that are allowed (exception: a pod cannot block access to itself)</li>
+                    <li>Namespaces that are allowed</li>
+                    <li>IP blocks (exception: traffic to and from the node where a Pod is running is always allowed,
+                        regardless
+                        of the IP address of the Pod or the node)</li>
+                </ol>
+                <p>When defining a pod- or namespace- based NetworkPolicy, you use a selector to
+                    specify what traffic is allowed to and from the Pod(s) that match the selector.</p>
+                <p>Meanwhile, when IP based NetworkPolicies are created, we define policies based on IP blocks (CIDR
+                    ranges).
+                </p>
+                <hr>
+                <h2 id="prerequisites">Prerequisites</h2>
+                <p>Network policies are implemented by the network plugin. To use
+                    network policies, you must be using a networking solution which supports NetworkPolicy. Creating a
+                    NetworkPolicy resource without a controller that implements it will have no effect.</p>
+                    <hr>
+                <h2 id="isolated-and-non-isolated-pods">Isolated and Non-isolated Pods</h2>
+                <p>By default, pods are non-isolated; they accept traffic from any source.</p>
+                <p>Pods become isolated by having a NetworkPolicy that selects them. Once there is any NetworkPolicy in
+                    a
+                    namespace selecting a particular pod, that pod will reject any connections that are not allowed by
+                    any
+                    NetworkPolicy. (Other pods in the namespace that are not selected by any NetworkPolicy will continue
+                    to
+                    accept all traffic.)</p>
+                <p>Network policies do not conflict; they are additive. If any policy or policies select a pod, the pod
+                    is
+                    restricted to what is allowed by the union of those policies' ingress/egress rules. Thus, order of
+                    evaluation does not affect the policy result.</p>
+                    <hr>
+                <h2 id="networkpolicy-resource">The NetworkPolicy resource</h2>
+                <p>See the NetworkPolicy</a>
+                    reference for a full definition of the resource.</p>
+                <p>An example NetworkPolicy might look like this:</p>
+                <div class="highlight">
+                    <pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#a2f;font-weight:700">apiVersion</span>:<span style="color:#bbb"> </span>networking.k8s.io/v1<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:700">kind</span>:<span style="color:#bbb"> </span>NetworkPolicy<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:700">metadata</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#a2f;font-weight:700">name</span>:<span style="color:#bbb"> </span>test-network-policy<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#a2f;font-weight:700">namespace</span>:<span style="color:#bbb"> </span>default<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:700">spec</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#a2f;font-weight:700">podSelector</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:700">matchLabels</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:700">role</span>:<span style="color:#bbb"> </span>db<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#a2f;font-weight:700">policyTypes</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>- Ingress<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>- Egress<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#a2f;font-weight:700">ingress</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>- <span style="color:#a2f;font-weight:700">from</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#a2f;font-weight:700">ipBlock</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:700">cidr</span>:<span style="color:#bbb"> </span><span style="color:#666">172.17.0.0</span>/<span style="color:#666">16</span><span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:700">except</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">        </span>- <span style="color:#666">172.17.1.0</span>/<span style="color:#666">24</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#a2f;font-weight:700">namespaceSelector</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:700">matchLabels</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:700">project</span>:<span style="color:#bbb"> </span>myproject<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#a2f;font-weight:700">podSelector</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:700">matchLabels</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:700">role</span>:<span style="color:#bbb"> </span>frontend<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:700">ports</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#a2f;font-weight:700">protocol</span>:<span style="color:#bbb"> </span>TCP<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:700">port</span>:<span style="color:#bbb"> </span><span style="color:#666">6379</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#a2f;font-weight:700">egress</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>- <span style="color:#a2f;font-weight:700">to</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#a2f;font-weight:700">ipBlock</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:700">cidr</span>:<span style="color:#bbb"> </span><span style="color:#666">10.0.0.0</span>/<span style="color:#666">24</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:700">ports</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#a2f;font-weight:700">protocol</span>:<span style="color:#bbb"> </span>TCP<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:700">port</span>:<span style="color:#bbb"> </span><span style="color:#666">5978</span><span style="color:#bbb">
+</span></code></pre>
+                </div>
+                <blockquote class="note callout">
+                    <div><strong>Note:</strong> POSTing this to the API server for your cluster will have no effect
+                        unless your
+                        chosen networking solution supports network policy.</div>
+                </blockquote>
+                <p><strong>Mandatory Fields</strong>: As with all other Kubernetes config, a NetworkPolicy
+                    needs <code>apiVersion</code>, <code>kind</code>, and <code>metadata</code> fields. For general
+                    information
+                    about working with config files, see
+                    Configure Containers Using a
+                    ConfigMap,
+                    and Object Management.</p>
+                <p><strong>spec</strong>: NetworkPolicy spec has all the information needed to define a particular
+                    network
+                    policy in the given namespace.</p>
+                <p><strong>podSelector</strong>: Each NetworkPolicy includes a <code>podSelector</code> which selects
+                    the
+                    grouping of pods to which the policy applies. The example policy selects pods with the label
+                    "role=db". An
+                    empty <code>podSelector</code> selects all pods in the namespace.</p>
+                <p><strong>policyTypes</strong>: Each NetworkPolicy includes a <code>policyTypes</code> list which may
+                    include
+                    either <code>Ingress</code>, <code>Egress</code>, or both. The <code>policyTypes</code> field
+                    indicates
+                    whether or not the given policy applies to ingress traffic to selected pod, egress traffic from
+                    selected
+                    pods, or both. If no <code>policyTypes</code> are specified on a NetworkPolicy then by default
+                    <code>Ingress</code> will always be set and <code>Egress</code> will be set if the NetworkPolicy has
+                    any
+                    egress rules.</p>
+                <p><strong>ingress</strong>: Each NetworkPolicy may include a list of allowed <code>ingress</code>
+                    rules. Each
+                    rule allows traffic which matches both the <code>from</code> and <code>ports</code> sections. The
+                    example
+                    policy contains a single rule, which matches traffic on a single port, from one of three sources,
+                    the first
+                    specified via an <code>ipBlock</code>, the second via a <code>namespaceSelector</code> and the third
+                    via a
+                    <code>podSelector</code>.</p>
+                <p><strong>egress</strong>: Each NetworkPolicy may include a list of allowed <code>egress</code> rules.
+                    Each
+                    rule allows traffic which matches both the <code>to</code> and <code>ports</code> sections. The
+                    example
+                    policy contains a single rule, which matches traffic on a single port to any destination in
+                    <code>10.0.0.0/24</code>.</p>
+                <p>So, the example NetworkPolicy:</p>
+                <ol>
+                    <li>
+                        <p>isolates "role=db" pods in the "default" namespace for both ingress and egress traffic (if
+                            they
+                            weren't already isolated)</p>
+                    </li>
+                    <li>
+                        <p>(Ingress rules) allows connections to all pods in the "default" namespace with the label
+                            "role=db" on
+                            TCP port 6379 from:</p>
+                        <ul>
+                            <li>any pod in the "default" namespace with the label "role=frontend"</li>
+                            <li>any pod in a namespace with the label "project=myproject"</li>
+                            <li>IP addresses in the ranges 172.17.0.0–172.17.0.255 and 172.17.2.0–172.17.255.255 (ie,
+                                all of
+                                172.17.0.0/16 except 172.17.1.0/24)</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>(Egress rules) allows connections from any pod in the "default" namespace with the label
+                            "role=db" to
+                            CIDR 10.0.0.0/24 on TCP port 5978</p>
+                    </li>
+                </ol>
+                <hr>
+                <h2 id="prohibited-network-policy">What you can't do with network policies (atleast, not yet)</h2>
+                <p>The following functionality does not exist in the NetworkPolicy API, but you might be
+                    able to implement workarounds using Operating System components (such as SELinux, OpenVSwitch,
+                    IPTables, and
+                    so on) or Layer 7 technologies (Ingress controllers, Service Mesh implementations) or admission
+                    controllers.
+                    In case you are new to network security in Kubernetes, its worth noting that the following User
+                    Stories
+                    cannot (yet) be implemented using the NetworkPolicy API. Some (but not all) of these user stories
+                    are
+                    actively being discussed for future releases of the NetworkPolicy API.</p>
+                <ul>
+                    <li>Forcing internal cluster traffic to go through a common gateway (this might be best served with
+                        a
+                        service mesh or other proxy).</li>
+                    <li>Anything TLS related (use a service mesh or ingress controller for this).</li>
+                    <li>Node specific policies (you can use CIDR notation for these, but you cannot target nodes by
+                        their
+                        Kubernetes identities specifically).</li>
+                    <li>Targeting of namespaces or services by name (you can, however, target pods or namespaces by
+                        their
+                        labels,
+                        which is often a viable workaround).</li>
+                    <li>Creation or management of "Policy requests" that are fulfilled by a third party.</li>
+                    <li>Default policies which are applied to all namespaces or pods (there are some third party
+                        Kubernetes
+                        distributions and projects which can do this).</li>
+                    <li>Advanced policy querying and reachability tooling.</li>
+                    <li>The ability to target ranges of Ports in a single policy declaration.</li>
+                    <li>The ability to log network security events (for example connections that are blocked or
+                        accepted).</li>
+                    <li>The ability to explicitly deny policies (currently the model for NetworkPolicies are deny by
+                        default,
+                        with only the ability to add allow rules).</li>
+                    <li>The ability to prevent loopback or incoming host traffic (Pods cannot currently block localhost
+                        access,
+                        nor do they have the ability to block access from their resident node).</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <footer style="padding: 20px; font-size: 0.5rem; color: grey; text-align: center;">
+        <h6>©2020 By Prashant Yadav</h6>
+    </footer>
+    
+</body>
+
+</html>

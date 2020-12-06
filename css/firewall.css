@@ -1,0 +1,75 @@
+/* --------Tag Selector--------- */
+
+.theme{
+    color: #e2daf1;
+    background-color: #171717;
+    overflow-x: hidden;
+}
+hr{
+    background-color: #fff;
+}
+h1{
+    font-size: 2.5rem;
+}
+h3{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: block;
+}
+li{
+    line-height: 1.8;
+}
+
+/* ---------Class Selector-------- */
+
+.content{
+    position: sticky;
+    top: 0px;
+    overflow-y: auto;
+}
+.outerdiv2{
+    padding: 5px 20px 25px 25px;
+    overflow-y: auto;
+    width: 74%;
+    border-left: 3px solid indigo;
+}
+
+/* ------------Header Section----------- */
+.header a{
+    font-size: 2rem;
+}
+.header a:hover{
+    font-size: 2.2rem;
+}
+
+/* -------Left Menu List------- */
+.decor li a , .decor li{
+    list-style: none;   
+    padding: 4px 0px;
+    text-decoration: none;
+    color: #e2daf1;
+    line-height: 1.7;
+    display: flex;
+}
+.decor li a:hover{
+    color: #e2e2e2;
+    background: rgba(105, 105, 105, 0.1);
+}
+/* ---------Left Menu List Over------- */
+
+
+/* -----------ID Selector----------- */
+
+#firewalltypes{
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+}
+
+@media (max-width: 620px){
+    .outerdiv1{
+        display: none;
+        content: none;
+    }
+    .adis{
+        width: 90%;
+    }
+}

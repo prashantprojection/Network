@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Gateway</title>
+    <link rel="stylesheet" href="css/application_gateway.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
+    </script>
+</head>
+
+<body class="theme">
+    <nav class="navbar navbar-expand-md navbar-dark navbar-inverse" style=" justify-content: center; padding: 0%;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" style="font-size: 1.7rem;"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+            <ul class="nav navbar-nav ml-auto">
+                <li class="header">
+                    <a href="index.html">Firewall</a>
+                </li>
+                <li class="header">
+                    <a href="Network Policy.html">Network Policy</a>
+                </li>
+                <li class="header">
+                    <a href="firewall_authentication.html">Authentication</a>
+                </li>
+                <li class="header">
+                    <a href="packet_filtering.html">Packet Filtering</a>
+                </li>
+                <li class="header active">
+                    <a href="application_gateway.html">Application Gateway</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="outerdiv1" style="width: 25%; padding: 15px;">
+            <nav class="leftsidebar">
+                <ul class="decor">
+                    <li><a href="#main-heading">Application Gateway</a></li>
+                    <li><a href="#features-heading">Application Gateway features</a></li>
+                    <ul>
+                        <li><a href="#secure-sockets-layer-ssltls-termination">Secure Sockets
+                                Layer (SSL/TLS) termination</a></li>
+                        <li><a href="#autoscaling">Autoscaling</a></li>
+                        <li><a href="#zone-redundancy">Zone redundancy</a></li>
+                        <li><a href="#static-vip">Static VIP</a></li>
+                        <li><a href="#web-application-firewall">Web Application Firewall</a></li>
+                        <li><a href="#ingress-controller-for-aks">Ingress Controller for AKS</a></li>
+                        <li><a href="#url-based-routing">URL-based routing</a></li>
+                        <li><a href="#multiple-site-hosting">Multiple-site hosting</a></li>
+                        <li><a href="#redirection">Redirection</a></li>
+                        <li><a href="#session-affinity">Session affinity</a></li>
+                        <li><a href="#websocket-and-http2-traffic">Websocket and HTTP/2 traffic</a></li>
+                        <li><a href="#connection-draining">Connection draining</a></li>
+                        <li><a href="#custom-error-pages">Custom error pages</a></li>
+                        <li><a href="#rewrite-http-headers-and-url">Rewrite HTTP headers andbURL</a></li>
+                        <li><a href="#sizing">Sizing</a></li>
+                    </ul>
+                    <li><a href="#how-an-application-gateway-works">How an application gateway works</a></li>
+                    <ol>
+                        <li><a href="#how-an-application-gateway-accepts-a-request">How an application gateway accepts a
+                                request</a></li>
+                        <li><a href="#how-an-application-gateway-routes-a-request">How an application gateway routes a
+                                request</a></li>
+                        <li><a href="#modifications-to-the-request">Modifications to the request</a></li>
+                    </ol>
+                </ul>
+            </nav>
+        </div>
+
+
+        <div class="rightsidebar adis">
+            <h1 id="main-heading">Application Gateway</h1>
+            <hr>
+            <p>Application gateway (also known as ALG, application layer gateway, application-level gateway,
+                application proxy, or application-level proxy) is a security component that augments a firewall or
+                NAT employed in a computer network. It allows customized NAT traversal filters to be plugged into the
+                gateway to support address and port translation for certain application layer "control/data" protocols
+                such as FTP, BitTorrent, SIP, RTSP, file transfer in IM applications, etc. In order for these protocols
+                to work through NAT or a firewall, either the application has to know about an address/port number
+                combination that allows incoming packets, or the NAT has to monitor the control traffic and open up port
+                mappings (firewall pinhole) dynamically as required. Legitimate application data can thus be passed
+                through the security checks of the firewall or NAT that would have otherwise restricted the traffic for
+                not meeting its limited filter criteria.</p>
+            <hr>
+            <p>Application Gateway can make routing decisions based on additional attributes of an HTTP request, for
+                example URI path or host headers. For example, you can route traffic based on the incoming URL. So if
+                <code>/images</code> is in the incoming URL, you can route traffic to a specific set of servers (known as a pool)
+                configured for images. If <code>/video</code> is in the URL, that traffic is routed to another pool that's optimized
+                for videos.</p>
+            <center><img style="width: 100%; opacity: 0.7;" src="images/application gateway.png" alt="Application Gateway Image">
+            </center>
+            <p>This type of routing is known as application layer (OSI layer 7) load balancing.</p>
+            <hr>
+            <h2 id="features-heading">Application Gateway features</h2>
+            <p>Application Gateway includes the following features:</p>
+            <ul>
+                <li><a href="#secure-sockets-layer-ssltls-termination">Secure Sockets
+                        Layer (SSL/TLS) termination</a></li>
+                <li><a href="#autoscaling">Autoscaling</a></li>
+                <li><a href="#zone-redundancy">Zone redundancy</a></li>
+                <li><a href="#static-vip">Static VIP</a></li>
+                <li><a href="#web-application-firewall">Web Application Firewall</a></li>
+                <li><a href="#ingress-controller-for-aks">Ingress Controller for AKS</a></li>
+                <li><a href="#url-based-routing">URL-based routing</a></li>
+                <li><a href="#multiple-site-hosting">Multiple-site hosting</a></li>
+                <li><a href="#redirection">Redirection</a></li>
+                <li><a href="#session-affinity">Session affinity</a></li>
+                <li><a href="#websocket-and-http2-traffic">Websocket and HTTP/2 traffic</a></li>
+                <li><a href="#connection-draining">Connection draining</a></li>
+                <li><a href="#custom-error-pages">Custom error pages</a></li>
+                <li><a href="#rewrite-http-headers-and-url">Rewrite HTTP headers andbURL</a></li>
+                <li><a href="#sizing">Sizing</a></li>
+            </ul>
+            <hr>
+
+            <h3 id="secure-sockets-layer-ssltls-termination">Secure Sockets Layer (SSL/TLS) termination</h3>
+            <p>Application gateway supports SSL/TLS termination at the gateway, after which traffic typically flows
+                unencrypted
+                to the backend servers. This feature allows web servers to be unburdened from costly encryption and
+                decryption
+                overhead. But sometimes unencrypted communication to the servers isn't an acceptable option. This can be
+                because
+                of security requirements, compliance requirements, or the application may only accept a secure
+                connection. For
+                these applications, application gateway supports end to end SSL/TLS encryption.</p>
+            <hr>
+
+            <h3 id="autoscaling">Autoscaling</h3>
+            <p>Application Gateway Standard_v2 supports autoscaling and can scale up or down based on changing traffic
+                load
+                patterns. Autoscaling also removes the requirement to choose a deployment size or instance count during
+                provisioning.</p>
+            <hr>
+
+            <h3 id="zone-redundancy">Zone redundancy</h3>
+            <p>A Standard_v2 Application Gateway can span multiple Availability Zones, offering better fault resiliency
+                and
+                removing the need to provision separate Application Gateways in each zone.</p>
+            <hr>
+
+            <h3 id="static-vip">Static VIP</h3>
+            <p>The application gateway Standard_v2 SKU supports static VIP type exclusively. This ensures that the VIP
+                associated with application gateway doesn't change even over the lifetime of the Application Gateway.
+            </p>
+            <hr>
+
+            <h3 id="web-application-firewall">Web Application Firewall</h3>
+            <p>Web Application Firewall (WAF) is a service that provides centralized protection of your web applications
+                from
+                common exploits and vulnerabilities. WAF is based on rules from the OWASP (Open Web Application Security
+                Project) core rule sets 3.1 (WAF_v2 only),
+                3.0, and 2.2.9.</p>
+            <p>Web applications are increasingly targets of malicious attacks that exploit common known vulnerabilities.
+                Common
+                among these exploits are SQL injection attacks, cross site scripting attacks to name a few. Preventing
+                such
+                attacks in application code can be challenging and may require rigorous maintenance, patching and
+                monitoring at
+                many layers of the application topology. A centralized web application firewall helps make security
+                management
+                much simpler and gives better assurance to application administrators against threats or intrusions. A
+                WAF
+                solution can also react to a security threat faster by patching a known vulnerability at a central
+                location
+                versus securing each of individual web applications. Existing application gateways can be converted to a
+                Web
+                Application Firewall enabled application gateway easily.</p>
+            <hr>
+
+            <h3 id="ingress-controller-for-aks">Ingress Controller for AKS</h3>
+            <p>Application Gateway Ingress Controller (AGIC) allows you to use Application Gateway as the ingress for an
+                Azure Kubernetes
+                Service (AKS) cluster.</p>
+            <p>The ingress controller runs as a pod within the AKS cluster and consumes Kubernetes
+                Ingress Resources and converts them to an Application Gateway configuration, which allows the gateway to
+                load-balance traffic to the Kubernetes pods. The ingress controller only supports Application Gateway
+                Standard_v2 and WAF_v2 SKUs.</p>
+            <hr>
+
+            <h3 id="url-based-routing">URL-based routing</h3>
+            <p>URL Path Based Routing allows you to route traffic to back-end server pools based on URL Paths of the
+                request.
+                One of the scenarios is to route requests for different content types to different pool.</p>
+            <p>For example, requests for <code>http://contoso.com/video/*</code> are routed to VideoServerPool, and
+                <code>http://contoso.com/images/*</code> are routed to ImageServerPool. DefaultServerPool is selected if
+                none of
+                the path patterns match.</p>
+            <hr>
+
+            <h3 id="multiple-site-hosting">Multiple-site hosting</h3>
+            <p>With Application Gateway, you can configure routing based on host name or domain name for more than one
+                web
+                application on the same application gateway. It allows you to configure a more efficient topology for
+                your
+                deployments by adding up to 100+ websites to one application gateway. Each website can be directed to
+                its own
+                backend pool. For example, three domains, contoso.com, fabrikam.com, and adatum.com, point to the IP
+                address of
+                the application gateway. You'd create three multi-site listeners and configure each listener for the
+                respective
+                port and protocol setting.</p>
+            <p>Requests for <code>http://contoso.com</code> are routed to ContosoServerPool,
+                <code>http://fabrikam.com</code>
+                are routed to FabrikamServerPool, and so on.</p>
+            <p>Similarly, two subdomains of the same parent domain can be hosted on the same application gateway
+                deployment.
+                Examples of using subdomains could include <code>http://blog.contoso.com</code> and
+                <code>http://app.contoso.com</code> hosted on a single application gateway deployment.</p>
+            <p>You can also define wildcard host names in a multi-site listener and up to 5 host names per listener.</p>
+            <hr>
+
+            <h3 id="redirection">Redirection</h3>
+            <p>A common scenario for many web applications is to support automatic HTTP to HTTPS redirection to ensure
+                all
+                communication between an application and its users occurs over an encrypted path.</p>
+            <p>In the past, you may have used techniques such as dedicated pool creation whose sole purpose is to
+                redirect
+                requests it receives on HTTP to HTTPS. Application gateway supports the ability to redirect traffic on
+                the
+                Application Gateway. This simplifies application configuration, optimizes the resource usage, and
+                supports new
+                redirection scenarios, including global and path-based redirection. Application Gateway redirection
+                support
+                isn't limited to HTTP to HTTPS redirection alone. This is a generic redirection mechanism, so you can
+                redirect
+                from and to any port you define using rules. It also supports redirection to an external site as well.
+            </p>
+            <p>Application Gateway redirection support offers the following capabilities:</p>
+            <ul>
+                <li>Global redirection from one port to another port on the Gateway. This enables HTTP to HTTPS
+                    redirection on a
+                    site.</li>
+                <li>Path-based redirection. This type of redirection enables HTTP to HTTPS redirection only on a
+                    specific site
+                    area, for example a shopping cart area denoted by <code>/cart/*</code>.</li>
+                <li>Redirect to an external site.</li>
+            </ul>
+            <hr>
+
+            <h3 id="session-affinity">Session affinity</h3>
+            <p>The cookie-based session affinity feature is useful when you want to keep a user session on the same
+                server. By
+                using gateway-managed cookies, the Application Gateway can direct subsequent traffic from a user session
+                to the
+                same server for processing. This is important in cases where session state is saved locally on the
+                server for a
+                user session.</p>
+            <hr>
+
+            <h3 id="websocket-and-http2-traffic">Websocket and HTTP/2 traffic</h3>
+            <p>Application Gateway provides native support for the WebSocket and HTTP/2 protocols. There's no
+                user-configurable
+                setting to selectively enable or disable WebSocket support.</p>
+            <p>The WebSocket and HTTP/2 protocols enable full duplex communication between a server and a client over a
+                long
+                running TCP connection. This allows for a more interactive communication between the web server and the
+                client,
+                which can be bidirectional without the need for polling as required in HTTP-based implementations. These
+                protocols have low overhead, unlike HTTP, and can reuse the same TCP connection for multiple
+                request/responses
+                resulting in a more efficient resource utilization. These protocols are designed to work over
+                traditional HTTP
+                ports of 80 and 443.</p>
+            <hr>
+
+            <h3 id="connection-draining">Connection draining</h3>
+            <p>Connection draining helps you achieve graceful removal of backend pool members during planned service
+                updates.
+                This setting is enabled via the backend http setting and can be applied to all members of a backend pool
+                during
+                rule creation. Once enabled, Application Gateway ensures all deregistering instances of a backend pool
+                don't
+                receive any new request while allowing existing requests to complete within a configured time limit.
+                This
+                applies to both backend instances that are explicitly removed from the backend pool by a user
+                configuration
+                change, and backend instances that are reported as unhealthy as determined by the health probes. The
+                only
+                exception to this are requests bound for deregistering instances, which have been deregistered
+                explicitly,
+                because of gateway-managed session affinity and continues to be proxied to the deregistering instances.
+            </p>
+            <hr>
+
+            <h3 id="custom-error-pages">Custom error pages</h3>
+            <p>Application Gateway allows you to create custom error pages instead of displaying default error pages.
+                You can
+                use your own branding and layout using a custom error page.</p>
+            <hr>
+
+            <h3 id="rewrite-http-headers-and-url">Rewrite HTTP headers and URL</h3>
+            <p>HTTP headers allow the client and server to pass additional information with the request or the response.
+                Rewriting these HTTP headers helps you accomplish several important scenarios, such as:</p>
+            <ul>
+                <li>Adding security-related header fields like HSTS/ X-XSS-Protection.</li>
+                <li>Removing response header fields that can reveal sensitive information.</li>
+                <li>Stripping port information from X-Forwarded-For headers.</li>
+            </ul>
+            <p>Application Gateway and WAF v2 SKU supports the capability to add, remove, or update HTTP request and
+                response
+                headers, while the request and response packets move between the client and back-end pools. You can also
+                rewrite
+                URLs, query string parameters and host name. With URL rewrite and URL path-based routing, you can choose
+                to
+                either route requests to one of the backend pools based on the original path or the rewritten path,
+                using the
+                re-evaluate path map option.</p>
+            <p>It also provides you with the capability to add conditions to ensure the specified headers or URL are
+                rewritten
+                only when certain conditions are met. These conditions are based on the request and response
+                information.</p>
+            <hr>
+
+            <h3 id="sizing">Sizing</h3>
+            <p>Application Gateway Standard_v2 can be configured for autoscaling or fixed size deployments. The v2 SKU
+                doesn't
+                offer different instance sizes.</p>
+            <p>The Application Gateway Standard (v1) is offered in three sizes: <strong>Small</strong>,
+                <strong>Medium</strong>,
+                and <strong>Large</strong>. Small instance sizes are intended for development and testing scenarios.</p>
+
+            <p>The following table shows an average performance throughput for each application gateway v1 instance with
+                SSL
+                offload enabled:</p>
+            <div class="table-scroll-wrapper">
+                <table class="table">
+                    <caption >Sizing</caption>
+                    <thead>
+                        <tr>
+                            <th>Average back-end page response size</th>
+                            <th>Small</th>
+                            <th>Medium</th>
+                            <th>Large</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>6 KB</td>
+                            <td>7.5 Mbps</td>
+                            <td>13 Mbps</td>
+                            <td>50 Mbps</td>
+                        </tr>
+                        <tr>
+                            <td>100 KB</td>
+                            <td>35 Mbps</td>
+                            <td>100 Mbps</td>
+                            <td>200 Mbps</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="alert is-info">
+                <p class="alert-title"><span class="docon docon-status-error-outline" aria-hidden="true"></span> Note:
+                </p>
+                <p>These values are approximate values for an application gateway throughput. The actual throughput
+                    depends on
+                    various environment details, such as average page size, location of back-end instances, and
+                    processing time
+                    to serve a page. For exact performance numbers, you should run your own tests. These values are only
+                    provided for capacity planning guidance.</p>
+            </div>
+
+
+            <hr>
+            <h1 id="how-an-application-gateway-works">How an application gateway works</h1>
+            <hr>
+            <center><img style="width: 100%; opacity: 0.7;" src="images/how-application-gateway-works.png"
+                    alt="Application Gateway Working"></center>
+            <hr>
+
+            <h2 id="how-an-application-gateway-accepts-a-request">How an application gateway accepts a request</h2>
+            <ol>
+                <li>
+                    <p>Before a client sends a request to an application gateway, it resolves the domain name of the
+                        application
+                        gateway by using a Domain Name System (DNS) server. Azure controls the DNS entry because all
+                        application
+                        gateways are in the azure.com domain.</p>
+                </li>
+                <li>
+                    <p>The Azure DNS returns the IP address to the client, which is the frontend IP address of the
+                        application
+                        gateway.</p>
+                </li>
+                <li>
+                    <p>The application gateway accepts incoming traffic on one or more listeners. A listener is a
+                        logical entity
+                        that checks for connection requests. It's configured with a frontend IP address, protocol, and
+                        port
+                        number for connections from clients to the application gateway.</p>
+                </li>
+                <li>
+                    <p>If a web application firewall (WAF) is in use, the application gateway checks the request headers
+                        and the
+                        body, if present, against WAF rules. This action determines if the request is valid request or a
+                        security threat. If the request is valid, it's routed to the backend. If the request isn't valid
+                        and WAF
+                        is in Prevention mode, it's blocked as a security threat. If it's in Detection mode, the request
+                        is
+                        evaluated and logged, but still forwarded to the backend server.</p>
+                </li>
+            </ol>
+            <p>Azure Application Gateway can be used as an internal application load balancer or as an internet-facing
+                application load balancer. An internet-facing application gateway uses public IP addresses. The DNS name
+                of an
+                internet-facing application gateway is publicly resolvable to its public IP address. As a result,
+                internet-facing application gateways can route client requests to the internet.</p>
+            <p>Internal application gateways use only private IP addresses. If you are using a Custom or Private DNS
+                zone, the domain name
+                should be internally resolvable to the private IP address of the Application Gateway. Therefore,
+                internal
+                load-balancers can only route requests from clients with access to a virtual network for the application
+                gateway.</p>
+            <hr>
+
+            <h2 id="how-an-application-gateway-routes-a-request">How an application gateway routes a request</h2>
+            <p>If a request is valid and not blocked by WAF, the application gateway evaluates the request routing rule
+                that's
+                associated with the listener. This action determines which backend pool to route the request to.</p>
+            <p>Based on the request routing rule, the application gateway determines whether to route all requests on
+                the
+                listener to a specific backend pool, route requests to different backend pools based on the URL path, or
+                redirect requests to another port or external site.</p>
+            <div class="alert is-info">
+                <p class="alert-title"></span> Note:</p>
+                <p>Rules are processed in the order they're listed in the portal for v1 SKU.</p>
+            </div>
+            <p>When the application gateway selects the backend pool, it sends the request to one of the healthy backend
+                servers
+                in the pool (y.y.y.y). The health of the server is determined by a health probe. If the backend pool
+                contains
+                multiple servers, the application gateway uses a round-robin algorithm to route the requests between
+                healthy
+                servers. This load balances the requests on the servers.</p>
+            <p>After the application gateway determines the backend server, it opens a new TCP session with the backend
+                server
+                based on HTTP settings. HTTP settings specify the protocol, port, and other routing-related settings
+                that are
+                required to establish a new session with the backend server.</p>
+            <p>The port and protocol used in HTTP settings determine whether the traffic between the application gateway
+                and
+                backend servers is encrypted (thus accomplishing end-to-end TLS) or is unencrypted.</p>
+            <p>When an application gateway sends the original request to the backend server, it honors any custom
+                configuration
+                made in the HTTP settings related to overriding the hostname, path, and protocol. This action maintains
+                cookie-based session affinity, connection draining, host-name selection from the backend, and so on.</p>
+            <div class="alert is-info">
+                <p class="alert-title"> Note:</p>
+                <p>If the backend pool:</p>
+                <ul>
+                    <li><strong>Is a public endpoint</strong>, the application gateway uses its frontend public IP to
+                        reach the
+                        server. If there isn't a frontend public IP address, one is assigned for the outbound external
+                        connectivity.</li>
+                    <li><strong>Contains an internally resolvable FQDN or a private IP address</strong>, the application
+                        gateway
+                        routes the request to the backend server by using its instance private IP addresses.</li>
+                    <li><strong>Contains an external endpoint or an externally resolvable FQDN</strong>, the application
+                        gateway
+                        routes the request to the backend server by using its frontend public IP address. The DNS
+                        resolution is
+                        based on a private DNS zone or custom DNS server, if configured, or it uses the default
+                        Azure-provided
+                        DNS. If there isn't a frontend public IP address, one is assigned for the outbound external
+                        connectivity.</li>
+                </ul>
+            </div>
+            <hr>
+
+            <h3 id="modifications-to-the-request">Modifications to the request</h3>
+            <p>An application gateway inserts four additional headers to all requests before it forwards the requests to
+                the
+                backend. These headers are x-forwarded-for, x-forwarded-proto, x-forwarded-port, and x-original-host.
+                The format
+                for x-forwarded-for header is a comma-separated list of IP:port.</p>
+            <p>The valid values for x-forwarded-proto are HTTP or HTTPS. X-forwarded-port specifies the port where the
+                request
+                reached the application gateway. X-original-host header contains the original host header with which the
+                request
+                arrived. This header is useful in Azure website integration, where the incoming host header is modified
+                before
+                traffic is routed to the backend. If session affinity is enabled as an option, then it adds a
+                gateway-managed
+                affinity cookie.</p>
+            <p>You can configure application gateway to modify request and response headers and URL by using Rewrite
+                HTTP headers and URL or to modify
+                the URI path by using a path-override setting. However, unless configured to do so, all incoming
+                requests are
+                proxied to the backend.</p>
+
+        </div>
+    </div>
+
+    <footer style="padding: 20px; font-size: 0.5rem; color: grey; text-align: center;">
+        <h6>©2020 By Prashant Yadav</h6>
+    </footer>
+
+</body>
+
+</html>

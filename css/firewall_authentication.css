@@ -1,0 +1,45 @@
+.decor li a, .decor li{
+    text-decoration: none;
+    line-height: 1.8;
+    color: #e2daf1;
+    list-style: none;
+    padding: 4px 0px;
+    display: block;
+}
+.decor li a:hover{
+    color: #e2e2e2;
+    background: rgba(105, 105, 105, 0.1);
+}
+.theme{
+    color: #e2daf1;
+    background-color: #171717;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.rightsidebar{
+    width: 75%; 
+    padding: 25px 70px 25px 25px;
+    border-left: 3px solid indigo;
+}
+
+hr{
+    background-color: #fff;
+}
+
+
+/* -----------Header Section---------- */
+.header a{
+    font-size: 2rem;
+}
+.header a:hover{
+    font-size: 2.2rem;
+}
+@media (max-width: 620px){
+    .outerdiv1{
+        display: none;
+        content: none;
+    }
+    .adis{
+        width: 100%;
+    }
+}

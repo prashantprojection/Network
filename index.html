@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firewall | Network Security</title>
+    <link rel="stylesheet" href="css/firewall.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body class="theme">
+
+    <!-- TOP Navigation Bar -->
+
+        <nav class="navbar navbar-expand-md navbar-dark navbar-inverse" style=" justify-content: center; padding: 0%;">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style="font-size: 1.7rem;"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="header active">
+                        <a href="index.html">Firewall</a>
+                    </li>
+                    <li class="header">
+                        <a href="Network Policy.html">Network Policy</a>
+                    </li>
+                    <li class="header">
+                        <a href="firewall_authentication.html">Authentication</a>
+                    </li>
+                    <li class="header">
+                        <a href="packet_filtering.html">Packet Filtering</a>
+                    </li>
+                    <li class="header">
+                        <a href="application_gateway.html">Application Gateway</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+   
+
+    <!-- Main Content -->
+
+    <div class="row">
+        <div class=" outerdiv1" style="width: 25%;">
+            <div class="content">
+                <ul class="decor">
+                    <li><a href="#firewall">Firewall</a></li>
+                    <li><a href="#firewalltypes">Types of Firewall</a></li>
+                    <ul>
+                        <li><a href="#proxyfw">Proxy Firewall</a></li>
+                        <li><a href="#packfw">Packet Filtering Firewall</a></li>
+                        <li><a href="#statfw">Stateful inspection Firewall</a></li>
+                        <li><a href="#softfw">Software Firewall</a></li>
+                        <li><a href="#hardfw">Hardware Firewall</a></li>
+                        <li><a href="#utmfw">Unified threat management Firewall</a></li>
+                        <li><a href="#ngfw">Next-Generation Firewall</a></li>
+                        <li><a href="#threatfw">Threat-focused next-generation Firewall</a>
+                        </li>
+                        <li><a href="#virtualfw">Virtual Firewall</a></li>
+                    </ul>
+                    <li><a href="#fwuses">Uses of Firewall</a></li>
+                    <li><a href="#advdivfw">Advantages and Disadvantages of Firewall</a></li>
+                    <li><a href="#fwfun">Funtions of Firewall</a></li>
+                    <li><a href="#fwfeat">Features of Firewall</a></li>
+                    <li><a href="#fwexample">Examples of Firewalls</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="outerdiv2 adis" padding-left: 50px;">
+            <div>
+                <h1 id="firewall">Firewall</h1>
+                <hr>
+                <p>A firewall is a network security device that monitors incoming and outgoing network traffic and
+                    decides whether
+                    to allow or block specific traffic based on a defined set of security rules.</p>
+                <p>Firewalls have been a first line of defense in network security for over 25 years. They establish a
+                    barrier
+                    between secured and controlled internal networks that can be trusted and untrusted outside networks,
+                    such as the
+                    Internet.</p>
+                <p>A firewall can be hardware, software, or both.</p>
+                <hr>
+                <center><img style="width: 100%; opacity: 0.6;" src="images/firewall-network-security.jpg" alt="Firewall"></center>
+                <hr>
+
+                <h2 id="firewalltypes">Types of Firewalls</h2>
+                <hr>
+
+                <div class="types">
+                    <h3 id="proxyfw">Proxy Firewall</h3>
+                    <p>An early type of firewall device, a proxy firewall serves as the gateway from one network to
+                        another for a
+                        specific application. Proxy servers can provide additional functionality such as content caching
+                        and
+                        security by preventing direct connections from outside the network. However, this also may
+                        impact throughput
+                        capabilities and the applications they can support.</p>
+                        <center><img style="width: 100%; opacity: 0.5;" src="images/School-Firewall-Proxy.jpg" alt="Proxy Firewall"></center>
+                </div>
+                <hr>
+
+                <div class="types">
+                    <h3 id="packfw">Packet Filtering Firewall</h3>
+                    <p>This is about the most basic type and this Firewall application is for creating a barrier at the
+                        router. The working of the Firewall is only for checking the source and destination IPs without
+                        going into packet details. This is a Firewall example of one of the oldest architectures.</p>
+                        <center><img style="width: 60%; opacity: 0.5;" src="images/packet-filtering-firewall.jpg" alt="Packet Filtering Firewall"></center>
+                </div>
+                <hr>
+
+                <div class="types">
+                    <h3 id="statfw">Stateful inspection Firewall</h3>
+                    <p>Now thought of as a “traditional” firewall, a stateful inspection firewall allows or blocks
+                        traffic based on
+                        state, port, and protocol. It monitors all activity from the opening of a connection until it is
+                        closed.
+                        Filtering decisions are made based on both administrator-defined rules as well as context, which
+                        refers to
+                        using information from previous connections and packets belonging to the same connection.</p>
+                        <center><img style="width: 100%; opacity: 0.5;" src="images/stateful inspection firewall.jpg" alt="Stateful Inspection Fiirewall"></center>
+                </div>
+                <hr>
+
+                <div class="types">
+                    <h3 id="softfw">Software Firewall</h3>
+                    <p>A software Firewall definition is that it is a software installed on a device without any
+                        additional hardware. This answers the question of what is a Firewall software as well. Is
+                        Windows Firewall enough might be a legitimate doubt regarding stand-alone or individual
+                        computers? While windows give some basic protection, the need for firewalls in the form of an
+                        anti-virus plus application is always there.</p>
+                </div>
+                <hr>
+
+                <div class="types">
+                    <h3 id="hardfw">Hardware Firewall</h3>
+                    <p>Hardware Firewalls comprise devices that act as the first line of defense to filter data packets
+                        before they arrive at the servers. The major disadvantages of Firewalls of the hardware type are
+                        that they are easy for insider attacks to bypass them and the hardware capabilities vary with
+                        each supplier.</p>
+                        <center><img style="width: 100%; opacity: 0.5;" src="images/Hardware_firewall.png" alt="Hardware Fiewall"></center>
+                </div>
+                <hr>
+
+                <div class="types">
+                    <h3 id="utmfw">Unified threat management (UTM) Firewall</h3>
+                    <p>A UTM device typically combines, in a loosely coupled way, the functions of a stateful inspection
+                        firewall
+                        with intrusion prevention and antivirus. It may also include additional services and often cloud
+                        management.
+                        UTMs focus on simplicity and ease of use.</p>
+                </div>
+                <hr>
+
+                <div class="types">
+                    <h3 id="ngfw">Next-Generation Firewall (NGFW)</h3>
+                    <div>
+                        <p>Firewalls have evolved beyond simple packet filtering and stateful inspection. Most companies
+                            are
+                            deploying next-generation firewalls to block modern threats such as advanced malware and
+                            application-layer attacks.</p>
+                        <p>According to Gartner, Inc.’s definition, a next-generation firewall must include:</p>
+                        <ul>
+                            <li>Standard firewall capabilities like stateful inspection</li>
+                            <li>Integrated intrusion prevention</li>
+                            <li>Application awareness and control to see and block risky apps</li>
+                            <li>Upgrade paths to include future information feeds</li>
+                            <li>Techniques to address evolving security threats</li>
+                        </ul>
+                        <p>While these capabilities are increasingly becoming the standard for most companies, NGFWs can
+                            do more.
+                        </p>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="types">
+                    <h3 id="threatfw">Threat-focused NGFW</h3>
+                    <div>
+                        <p>These firewalls include all the capabilities of a traditional NGFW and also provide advanced
+                            threat
+                            detection and remediation. With a threat-focused NGFW you can:</p>
+                        <ul>
+                            <li><strong>Know which assets are most at risk</strong> with complete context awareness</li>
+                            <li><strong>Quickly react to attacks</strong> with intelligent security automation that sets
+                                policies
+                                and hardens your defenses dynamically</li>
+                            <li><strong>Better detect evasion or suspicious activity</strong> with network and endpoint
+                                event
+                                correlation</li>
+                            <li><strong>Greatly decrease the time from detection to cleanup</strong> with retrospective
+                                security
+                                that continuously monitors for suspicious activity and behavior even after initial
+                                inspection</li>
+                            <li><strong>Ease administration and reduce complexity</strong> with unified policies that
+                                protect across
+                                the entire attack continuum</li>
+                        </ul>
+                        <a href="https://www.cisco.com/c/en/us/products/security/firewalls/index.html">Learn more about
+                            threat-focused next-generation firewalls (NGFWs).</a>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="types">
+                    <h3 id="virtualfw">Virtual Firewall</h3>
+                    <p>A virtual firewall is typically deployed as a virtual appliance in a private cloud (VMware ESXi,
+                        Microsoft
+                        Hyper-V, KVM) or public cloud (AWS, Azure, Google) to monitor and secure traffic across physical
+                        and virtual
+                        networks. A virtual firewall is often a key component in software-defined networks (SDN).</p>
+                </div>
+
+                <hr>
+
+                <div>
+                    <h2 id="fwuses">Uses of Firewall</h2>
+                    <p>The uses of a Firewall are numerous. Questions like what is the use of a forewall or what does a
+                        Firewall do or what is a Firewall and what is its function are only natural when some big
+                        investment is required.</p>
+                    <p>A Firewall and its uses are given below for a better understanding.</p>
+                    <ul>
+                        <li>The useful thing about a Firewall is that it prevents unauthorized remote access and remote
+                            control of your computer by a hacker for evil purposes.</li>
+                        <li>Data security is ensured based on IP address and protocol.</li>
+                        <li>It ensures continuity of operations and availability of information.</li>
+                        <li>It blocks destructive or unsuitable or pornographic content.</li>
+                        <li>It prevents ransomware, malware, and phishing attacks.</li>
+                        <li>It shields older PCs with earlier versions of OS.</li>
+                        <li>It is safer for online gamers.</li>
+                    </ul>
+                </div>
+
+                <hr>
+
+                <div>
+                    <h2 id="advdivfw">Advantages & Disadvantages of Firewall</h2>
+                    <div class="row" style="padding: 30px;">
+                        <div class="adis" style="width: 49%;">
+                            <h3>Advantages of Firewall</h3>
+                            <ul>
+                                <li>A Firewall prevents
+                                    hackers and remote access.</li>
+                                <li>It protects data.</li>
+                                <li>It ensures better privacy and security.</li>
+                                <li>It protects from Trojans.</li>
+                                <li>A network-based Firewall, like a router, can offer protection
+                                    to multiple systems, while an OS-based Firewall can protect individual systems.</li>
+                            </ul>
+                        </div>
+                        <div class="adis" style="width: 49%;">
+                            <h3>Disadvantages of Firewall</h3>
+                            <ul>
+                                <li><strong>Cost: </strong>Installation of a Firewall can be costly depending on
+                                    the sophistication required.</li>
+                                <li><strong>Performance: </strong>This is affected as each packet has to be verified for
+                                    authenticity before it is allowed into the network.</li>
+                                <li><strong>Virus and Malware:</strong> There are a few limitations in a Firewall like
+                                    its inability to prevent virus and malware attacks for which separate applications
+                                    would be required, at the individual system level.</li>
+                                <li>A network-level Firewall might bring in a false sense of security in employees and
+                                    make them slacken on securing individual systems. Companies need to make all
+                                    employees understand the concept of a Firewall and the importance of a Firewall for
+                                    information security and their responsibility.</li>
+                                <li>Firewall maintenance and up-gradation require extra manpower and resources.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="types">
+                    <h2 id="fwfun">Funtions of Firewall</h2>
+                    <p>The main function of a Firewall is packet filtering. The other function is to act as an
+                        application proxy, commonly referred to as an application-level gateway.</p>
+                    <p>Some other functions are Stateful Firewalls which are dynamic, stateless Firewalls, deep packet
+                        inspection Firewalls, management functions, and more depending on the role of Firewalls and what
+                        is the Firewall security level that is required for a company.</p>
+                </div>
+
+                <hr>
+
+                <div class="types">
+                    <h2 id="fwfeat">Features of Firewall</h2>
+                    <p>A list given below answers the common query What are the features of a Firewall.</p>
+                    <ul>
+                        <li>Bandwidth control and monitoring.</li>
+                        <li>Web filtering.</li>
+                        <li>Internet aggregation.</li>
+                        <li>Sandboxing.</li>
+                        <li>VPN, Virtual Private Networks.</li>
+                        <li>Deep Packet Inspection, DPI.</li>
+                    </ul>
+                </div>
+
+                <hr>
+
+                <div class="types">
+                    <h2 id="fwexample">Examples of Firewalls</h2>
+                    <p>Below is a small list of Firewall available:</p>
+                    <ul>
+                        <li>CISCO</li>
+                        <li>Checkpoint</li>
+                        <li>Fortinet</li>
+                        <li>Watchguard</li>
+                        <li>Sophos</li>
+                        <li>Forcepoint</li>
+                        <li>Juniper</li>
+                        <li>D-Link</li>
+                        <li>Palo Alto</li>
+                        <li>Fortinet</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <footer style="padding: 20px; font-size: 0.5rem; color: grey; text-align: center;">
+        <h6>©2020 By Prashant Yadav</h6>
+    </footer>
+
+</body>
+
+</html>

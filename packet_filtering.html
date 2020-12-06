@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packet Filtering</title>
+    <link rel="stylesheet" href="css/packet_filtering.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
+    </script>
+</head>
+
+<body class="theme">
+    <nav class="navbar navbar-expand-md navbar-dark navbar-inverse" style=" justify-content: center; padding: 0%;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" style="font-size: 1.7rem;"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="header">
+                    <a href="index.html">Firewall</a>
+                </li>
+                <li class="header">
+                    <a href="Network Policy.html">Network Policy</a>
+                </li>
+                <li class="header">
+                    <a href="firewall_authentication.html">Authentication</a>
+                </li>
+                <li class="header active">
+                    <a href="packet_filtering.html">Packet Filtering</a>
+                </li>
+                <li class="header">
+                    <a href="application_gateway.html">Application Gateway</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+    <div class="row">
+        <div class="outerdiv1">
+            <div style="position: sticky; top: 0px;">
+                <ul class="decor">
+                    <li><a href="#main_heading">Packet Filtering</a></li>
+                    <li><a href="#diagram">Packet Filtering Diagram</a></li>
+                    <li><a href="#advdis">Advantages & Disadvantages of Packet Filtering</a></li>
+                    <li><a href="#example">Packet Filtering Firewall Example</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="rightsidebar adis">
+                <h1 id="main_heading">Packet Filtering</h1>
+                <hr>
+                <p>Packet filtering firewall is a network security technique that is used to control data flow to and
+                    from a network. It is a security mechanism that allows the movement of packets across the network
+                    and controls their flow on the basis of a set of rules, protocols, IP addresses, and ports.
+                </p>
+                <p>Packet filtering protects a local network from undesired invasion depending upon the predefined
+                    rules. The information passes through a network in the form of small pieces called packets, which
+                    travel independently across IP networks. These small packets travel through a node only if they
+                    match with predefined filtering rules otherwise get dropped. Hence, the filtering rules that are
+                    defined by the network layer firewalls in a packet filtering firewall prove to be highly efficient
+                    in providing security mechanisms.</p>
+                   
+               <hr>
+                <h2 id="diagram">Packet Filtering Diagram</h2>
+                <p>Packet filtering controls (allows or drops) packet or data transfer based on the following standards:
+                </p>
+                <ul>
+                    <li>The address the packet is coming from.</li>
+                    <li>The address the packet is going to.</li>
+                    <li>The application protocols or rules set to transfer the data.</li>
+                </ul>
+                <p>The packets filtering firewall shows how filtration is executed on the firewall. The packet filtering
+                    firewall checks access control lists (ACLs) to separate packets depending upon the upper-layer
+                    protocol ID, source and destination port numbers, source and destination IP addresses, and packet
+                    transmission route.</p>
+                <ul>
+                    <li>The packet filtering firewall analyses for the source and destination IP addresses, source, and
+                        destination port numbers, and protocol IDs of IP packets as per an ACL. The firewall checks for
+                        the information contained in the IP, TCP, or UDP header, and then it decides to accept or drop
+                        the packet depending upon the ACL.</li>
+                    <li>The firewall can allow the fragment type packets after comparing the information with the
+                        ACL.</li>
+                    <li>Additionally, it has a default method, set by users, that allows the packets to pass even if
+                        these do not qualify with the ACL.</li>
+                </ul>
+                <p>The passage of packets depends entirely on the decision of the packet filtering
+                    router firewall. It filters the packets according to the security protocols programmed into the
+                    router using the firewall rules. These packet filtering firewall rules are set up by users to build
+                    protection against packets transmission and allow only packets that match certain IP addresses or
+                    ports. Users may specify rules that will permit only those packets that are meant for their server
+                    and decline all other packets. For example, rules may be set to completely reject packets heading
+                    for the ports used by NetBIOS, which in turn prevents unwanted intrusion of Internet hackers on
+                    NetBIOS server resources.</p>
+                <p>A packet-filtering firewall can be distinguished into the following types based on the usage of
+                    rules:</p>
+                <ul>
+                    <li>Static packet filtering firewall<: In this type of firewall rules are
+                        established manually, and the connection between the internal and external networks left open or
+                        closed at all times until changed manually.</li>
+                    <li>Dynamic packet filtering firewall:< This type of firewall is a more intelligent
+                        way of filtering as rules may be changed dynamically depending upon the conditions, and ports
+                        are open only for a specific time otherwise remains closed.</li>
+                    <li>Stateful packet filtering firewall:< It uses a presettable for maintaining a
+                        secure connection, and packets pass through in a sequence as approved by the filter rules.</li>
+                </ul>
+
+                <hr>
+                <h2 id="advdis">Advantages and Disadvantages of Packet Filtering Firewall</h2>
+                <p>Packet-filtering firewalls usually run on either general-purpose computers/routers or a
+                    special-purpose router and have their share of packet filtering firewall advantages and
+                    disadvantages.</p>
+                <p>Packet filtering is an efficient defense system against intrusions from computers or networks outside
+                    a local area network (LAN). It is also a standard and cost-effective means of protection as most
+                    routing devices itself possess integrated filtering capabilities, so there is no need for setting a
+                    new firewall device. Following are some of the prominent advantages of packet filtering firewall
+                    that makes it highly acceptable worldwide:</p>
+                <ul>
+                    <li>Need only one router:< The key advantage of using packet filtering is that it
+                        requires the use of only one screening router to protect an entire network.</li>
+                    <li>Highly efficient and fast: <The packet filtering router works very fast and
+                        effectively and accepts and rejects the packets quickly based upon the destination and source
+                        ports and addresses. However, other firewall techniques show more time-consuming performance.
+                    </li>
+                    <li>Transparent to users:< Packet filtering works independently without any need for
+                        user knowledge or cooperation. Users won’t get to know about the transmission of packets until
+                        there is something that got rejected. On the contrary, other firewalls require custom software,
+                        the configuration of client machines, or specific training or procedures for users.</li>
+                    <li>Built-in packet filtering in routers: <Packet filtering capacities are inbuilt
+                        in widely used hardware and software routing products. Additionally, now most websites possess
+                        packet filtering techniques available in their routers itself, which also makes this technique
+                        the most inexpensive one.</li>
+                </ul>
+                <p>Although packet filtering offers several advantages, it also has some weaknesses. Some of the
+                    disadvantages of a packet filtering firewall are:</p>
+                <ul>
+                    <li>Filtration based on IP address or Port Information: <The biggest disadvantage of
+                        packet filtering is that it works on the authentication of IP address and port number and not
+                        based on the information like context or application.</li>
+                    <li>Packet filtering is stateless:< Another big disadvantage of packet filtering is
+                        that it does not remember any past invasions or filtered packets. It tests every packet in
+                        isolation and is stateless which allows hackers to break the firewall easily.</li>
+                    <li>No safety from address spoofing: <The packet filtering does not protect from IP
+                        spoofing, in which hackers can insert fake IP addresses in packets to intrude the network.</li>
+                    <li>Not a perfect option for all networks:< The packet filtering firewalls
+                        implementation in highly desirable filters becomes difficult or highly time-consuming. Managing
+                        and configuring ACLs sometimes get difficult.</li>
+                </ul>
+
+                <hr>
+                <h2 id="example">Packet Filtering Firewall Example</h2>
+                <p>Packet filters act on the source and destination IP and port addresses that are present in each
+                    TCP/IP packet. You can set rules allowing access to only familiar and established IP addresses and
+                    denying access to all unknown or unrecognized IP addresses.</p>
+                <p>For example, if you set rules denying access to port 80 to outsiders, you would block off all outside
+                    access to the HTTP server as most HTTP servers run on port 80. Alternatively, you can set packet
+                    filtering firewall rules permitting packets designated for your mail or web server and rejecting all
+                    other packets.</p>
+                <p>Despite its weaknesses, packet filter firewalls are widely used for being leverage and inexpensive.
+                    It controls the movement of information/packets according to a set of rules defined by the user and
+                    protects the network from unwanted intrusion or attacks. Thus, it acts as a powerful security tool
+                    and provides a good level of security to the network.</p>
+                
+            </div>
+    </div>
+
+    <footer style="padding: 20px; font-size: 0.5rem; color: grey; text-align: center;">
+        <h6>©2020 By Prashant Yadav</h6>
+    </footer>
+    
+</body>
+
+</html>
